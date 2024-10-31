@@ -76,7 +76,7 @@ Esto iniciará el servidor en `http://localhost:8000` (o el puerto que hayas con
 Para correr el cliente, abre otra terminal y asegúrate de estar en la carpeta del cliente, luego ejecuta:
 
 ```bash
-cd cliente
+cd client
 npm run dev
 ```
 
