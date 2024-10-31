@@ -33,7 +33,7 @@ Para instalar el proyecto, sigue los siguientes pasos:
 3. **Instala las dependencias para el cliente (Next.js)**:
 
    ```bash
-   cd cliente
+   cd client
    npm install
    ```
 
@@ -65,7 +65,7 @@ Para instalar el proyecto, sigue los siguientes pasos:
 Para correr el servidor API, asegúrate de estar en la carpeta del servidor y ejecuta:
 
 ```bash
-cd servidor
+cd prueba_app
 php artisan serve
 ```
 
