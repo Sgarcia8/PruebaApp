@@ -52,7 +52,7 @@ Para instalar el proyecto, sigue los siguientes pasos:
    cp .env.example .env
    ```
 
-   Luego, ejecuta el siguiente comando para generar la clave de la aplicación:
+   Revisa el contenido del archivo .env en especial la información de la base de datos(puerto, nombre, contraseña, etc). Luego, ejecuta el siguiente comando para generar la clave de la aplicación:
 
    ```bash
    php artisan key:generate
@@ -70,6 +70,8 @@ php artisan serve
 ```
 
 Esto iniciará el servidor en `http://localhost:8000` (o el puerto que hayas configurado).
+
+Aparte de esto debes revisar el archivo env y crear tu propia base de datos con el nombre que en este archivo aparece
 
 ### Cliente (Next.js)
 
