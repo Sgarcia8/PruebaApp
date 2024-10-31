@@ -82,21 +82,32 @@ const ProductFormContainer = ({ uri }) => {
         return !isNaN(lastChar) && lastChar !== ' '; // Asegúrate de que no sea un espacio en blanco
     }
 
+    const verificarCamposVacios = () => {
+        const hayCamposVacios = Object.values(productoField).some(value => value === '');
+        return hayCamposVacios;
+    };
+
     const onSubmitChange = async (e) => {
         e.preventDefault();
-        try {
 
-            if (!isLastCharacterNumber(uri)) {
-                console.log(productoField)
-                await axios.post(uri, productoField);
-                window.location.href = '/';
+        if (!verificarCamposVacios()) {
+            try {
+
+                if (!isLastCharacterNumber(uri)) {
+                    await axios.post(uri, productoField);
+                    window.location.href = '/';
+                }
+                else {
+                    await axios.put(uri, productoField);
+                    window.location.href = '/';
+                }
+            } catch (err) {
+                console.log(err);
             }
-            else {
-                await axios.put(uri, productoField);
-                window.location.href = '/';
-            }
-        } catch (err) {
-            console.log(err);
+        }
+        else{
+            alert("Por favor, completa todos los campos.");
+            return;
         }
     };
 

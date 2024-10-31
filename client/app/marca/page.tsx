@@ -4,8 +4,8 @@ import React, { useEffect, useState } from "react";
 import axios from 'axios'
 import Link from "next/link";
 
-export default function Productos() {
-    const [productoData, setProductoData] = useState<Marca[]>([]);
+export default function Marcas() {
+    const [marcaData, setMarcaData] = useState<Marca[]>([]);
     useEffect(() => {
         fetchData();
     }, [])
@@ -13,21 +13,26 @@ export default function Productos() {
     const fetchData = async () => {
         try {
             const result = await axios.get("http://127.0.0.1:8000/api/marca");
-            setProductoData(result.data || []);
+            setMarcaData(result.data || []);
         } catch (err) {
             console.log("somthing Wrong");
         }
     }
 
     const handleDelete = async (id: Number) => {
-        console.log(id);
-        await axios.delete("http://127.0.0.1:8000/api/marca/" + id);
-        const newProductoData = productoData.filter((item) => {
-            return (
-                item.id !== id
-            )
-        })
-        setProductoData(newProductoData);
+        // Confirmar si el usuario realmente quiere eliminar el elemento
+        const confirmar = window.confirm("¿Estás seguro de que deseas eliminar este elemento?");
+        if (confirmar) {
+            await axios.delete("http://127.0.0.1:8000/api/marca/" + id);
+            const newMarcaData = marcaData.filter((item) => {
+                return (
+                    item.id !== id
+                )
+            })
+            setMarcaData(newMarcaData);
+        } else {
+            console.log("Eliminación cancelada");
+        }
     }
     return (
         <div className='bg-blue-400 h-screen content-center '>
@@ -46,7 +51,7 @@ export default function Productos() {
                             </tr>
                         </thead>
                         <tbody>
-                            {productoData.map((rs, index) => (
+                            {marcaData.map((rs, index) => (
                                 <tr key={rs.id} className="bg-white border-b text-black">
                                     <td className="py-3 px-6">{index + 1}</td>
                                     <td className="py-3 px-6">{rs.nombre}</td>

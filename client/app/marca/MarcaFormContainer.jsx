@@ -6,7 +6,7 @@ import axios from 'axios'
 
 
 const MarcaFormContainer = ({ uri }) => {
-    const {id} = uri.charAt(uri.length-1); 
+    const { id } = uri.charAt(uri.length - 1);
     const [marcaField, setMarcaField] = useState({
         nombre: '',
         referencia: "",
@@ -39,20 +39,34 @@ const MarcaFormContainer = ({ uri }) => {
         return !isNaN(lastChar) && lastChar !== ' '; // Asegúrate de que no sea un espacio en blanco
     }
 
+
+    const verificarCamposVacios = () => {
+        const hayCamposVacios = Object.values(marcaField).some(value => value === '');
+        return hayCamposVacios;
+    };
+
+
     const onSubmitChange = async (e) => {
         e.preventDefault();
-        try {
 
-            if (!isLastCharacterNumber(uri)) {
-                await axios.post(uri, marcaField);
-                window.location.href = '/marca';
+        if (!verificarCamposVacios()) {
+            try {
+
+                if (!isLastCharacterNumber(uri)) {
+                    await axios.post(uri, marcaField);
+                    window.location.href = '/marca';
+                }
+                else {
+                    await axios.put(uri, marcaField);
+                    window.location.href = '/marca';
+                }
+            } catch (err) {
+                console.log(err);
             }
-            else{
-                await axios.put(uri, marcaField);
-                window.location.href = '/marca';
-            }
-        } catch (err) {
-            console.log(err);
+        }
+        else {
+            alert("Por favor, completa todos los campos.");
+            return;
         }
     };
 
